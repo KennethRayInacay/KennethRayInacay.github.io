@@ -13,4 +13,3 @@ function hitLike2() {
 } 
 btnLike1.addEventListener("click", hitLike1)
 btnLike2.addEventListener("click", hitLike2)
-
