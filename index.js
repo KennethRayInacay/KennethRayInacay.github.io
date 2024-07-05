@@ -1,4 +1,3 @@
-// Variables for product elements
 var product1 = document.getElementById("product1");
 var qty1 = document.getElementById("qty1");
 var price1 = document.getElementById("price1");
@@ -12,41 +11,30 @@ var total = document.getElementById("total");
 var cash = document.getElementById("cash");
 var change = document.getElementById("change");
 
-// Function to add orders and calculate total
-function addOrder(product, price, quantity) {
-    if (parseFloat(quantity) > 0) {
-        var order = quantity + ' pc/s x ' + price.toFixed(2) + '------' + product + '------ Php ' + (parseFloat(quantity) * price).toFixed(2) + '\n';
-        carts.value += order;
-
-        calculateTotal();
+function addOrder() {
+    carts.textContent = "";
+    let totalAmount = 0;
+    if (parseFloat(qty1.value) > 0) {
+        var order = qty1.value.toString() + ' pc/s x ' + price1.textContent + '------' + product1.textContent + '------ Php ' + (parseFloat(qty1.value) * parseFloat(price1.textContent)).toFixed(2) + '\n';
+        carts.textContent += order;
+        totalAmount += parseFloat(qty1.value) * parseFloat(price1.textContent);
     }
+    if (parseFloat(qty2.value) > 0) {
+        var order = qty2.value.toString() + ' pc/s x ' + price2.textContent + '------' + product2.textContent + '------ Php ' + (parseFloat(qty2.value) * parseFloat(price2.textContent)).toFixed(2) + '\n';
+        carts.textContent += order;
+        totalAmount += parseFloat(qty2.value) * parseFloat(price2.textContent);
+    }
+    total.value = totalAmount.toFixed(2);
+    calculateChange();
 }
 
-// Function to calculate total
-function calculateTotal() {
-    var lines = carts.value.split('\n');
-    var totalAmount = 0;
-
-    lines.forEach(function(line) {
-        if (line) {
-            var parts = line.split('------');
-            var pricePart = parts[2].split(' ')[1];
-            totalAmount += parseFloat(pricePart);
-        }
-    });
-
-    total.value = 'Php ' + totalAmount.toFixed(2);
+function calculateChange() {
+    const totalAmount = parseFloat(total.value) || 0;
+    const cashTendered = parseFloat(cash.value) || 0;
+    const changeAmount = cashTendered - totalAmount;
+    change.value = changeAmount >= 0 ? changeAmount.toFixed(2) : '0.00';
 }
 
-// Event listener for cash input to calculate change
-cash.addEventListener("keyup", function() {
-    var totalAmount = parseFloat(total.value.split(' ')[1]);
-    var cashTendered = parseFloat(cash.value);
-
-    if (cashTendered >= totalAmount) {
-        var changeAmount = cashTendered - totalAmount;
-        change.value = 'Php ' + changeAmount.toFixed(2);
-    } else {
-        change.value = '';
-    }
-});
+qty1.addEventListener("keyup", addOrder);
+qty2.addEventListener("keyup", addOrder);
+cash.addEventListener("keyup", calculateChange);
