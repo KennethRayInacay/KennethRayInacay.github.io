@@ -1,38 +1,52 @@
-const btnLike1 = document.getElementById("btnLike1");
-const btnDislike1 = document.getElementById("btnDislike1");
-const btnLike2 = document.getElementById("btnLike2");
-const btnDislike2 = document.getElementById("btnDislike2");
-const countLike1 = document.getElementById("countLike1");
-const countDislike1 = document.getElementById("countDislike1");
-const countLike2 = document.getElementById("countLike2");
-const countDislike2 = document.getElementById("countDislike2");
+// Variables for product elements
+var product1 = document.getElementById("product1");
+var qty1 = document.getElementById("qty1");
+var price1 = document.getElementById("price1");
 
-function hitLike1() {
-    let totalLike1 = parseInt(countLike1.textContent) + 1;
-    countLike1.textContent = totalLike1.toString();
-} 
-function hitDislike1() {
-    let totalDislike1 = parseInt(countDislike1.textContent) + 1;
-    countDislike1.textContent = totalDislike1.toString();
-} 
-function hitLike2() {
-    let totalLike2 = parseInt(countLike2.textContent) + 1;
-    countLike2.textContent = totalLike2.toString();
-} 
-function hitDislike2() {
-    let totalDislike2 = parseInt(countDislike2.textContent) + 1;
-    countDislike2.textContent = totalDislike2.toString();
-} 
-btnLike1.addEventListener("click", hitLike1);
-btnDislike1.addEventListener("click", hitDislike1);
-btnLike2.addEventListener("click", hitLike2);
-btnDislike2.addEventListener("click", hitDislike2);
+var product2 = document.getElementById("product2");
+var qty2 = document.getElementById("qty2");
+var price2 = document.getElementById("price2");
 
-const submit = document.getElementById("submit");
-const comment = document.getElementById("comment");
-const commentbox = document.getElementById("commentbox");
-function submitComment() {
-    commentbox.textContent += comment.value.toString() + "\n";
-    comment.value="";
-} 
-submit.addEventListener("click", submitComment);
+var carts = document.getElementById("carts");
+var total = document.getElementById("total");
+var cash = document.getElementById("cash");
+var change = document.getElementById("change");
+
+// Function to add orders and calculate total
+function addOrder(product, price, quantity) {
+    if (parseFloat(quantity) > 0) {
+        var order = quantity + ' pc/s x ' + price.toFixed(2) + '------' + product + '------ Php ' + (parseFloat(quantity) * price).toFixed(2) + '\n';
+        carts.value += order;
+
+        calculateTotal();
+    }
+}
+
+// Function to calculate total
+function calculateTotal() {
+    var lines = carts.value.split('\n');
+    var totalAmount = 0;
+
+    lines.forEach(function(line) {
+        if (line) {
+            var parts = line.split('------');
+            var pricePart = parts[2].split(' ')[1];
+            totalAmount += parseFloat(pricePart);
+        }
+    });
+
+    total.value = 'Php ' + totalAmount.toFixed(2);
+}
+
+// Event listener for cash input to calculate change
+cash.addEventListener("keyup", function() {
+    var totalAmount = parseFloat(total.value.split(' ')[1]);
+    var cashTendered = parseFloat(cash.value);
+
+    if (cashTendered >= totalAmount) {
+        var changeAmount = cashTendered - totalAmount;
+        change.value = 'Php ' + changeAmount.toFixed(2);
+    } else {
+        change.value = '';
+    }
+});
