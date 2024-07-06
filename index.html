@@ -8,6 +8,7 @@
     <style>
         body {
             background-color: #f0f4f8;
+            margin-bottom: 60px; /* Adjust for footer height */
         }
         .container {
             margin-top: 20px;
@@ -48,6 +49,15 @@
             color: #155724;
             font-weight: bold;
         }
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
     </style>
 </head>
 <body>
@@ -71,6 +81,34 @@
                 <label for="product2" id="price2">6000.00</label><br>
                 <input type="number" class="form-control" id="qty2" placeholder="Enter quantity"/>
             </div>
+            <div class="col-md-4 text-center product-section">
+                <label id="product3">Stanley</label><br>
+                <img src="image3.jpg" class="img-thumbnail product-img"/><br>
+                <label for="product3" id="price3">5000.00</label><br>
+                <input type="number" class="form-control" id="qty3" placeholder="Enter quantity"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 text-center product-section">
+                <label id="product4">Bosch</label><br>
+                <img src="image4.jpg" class="img-thumbnail product-img"/><br>
+                <label for="product4" id="price4">6000.00</label><br>
+                <input type="number" class="form-control" id="qty4" placeholder="Enter quantity"/>
+            </div>
+            <div class="col-md-4 text-center product-section">
+                <label id="product5">Dewalt</label><br>
+                <img src="image5.jpg" class="img-thumbnail product-img"/><br>
+                <label for="product5" id="price5">6500.00</label><br>
+                <input type="number" class="form-control" id="qty5" placeholder="Enter quantity"/>
+            </div>
+            <div class="col-md-4 text-center product-section">
+                <label id="product6">Ingco</label><br>
+                <img src="image6.jpg" class="img-thumbnail product-img"/><br>
+                <label for="product6" id="price6">7500.00</label><br>
+                <input type="number" class="form-control" id="qty6" placeholder="Enter quantity"/>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-md-4 orders-section">
                 <label for="carts">Orders</label><br>
                 <textarea class="form-control" rows="10" id="carts" readonly></textarea>
@@ -80,6 +118,11 @@
             </div>
         </div>
     </div>
+    
+    <footer class="footer">
+        By Kenneth Ray T. Inacay, BSIT 3A
+    </footer>
+
     <script src="app.js"></script>
 </body>
 </html>
